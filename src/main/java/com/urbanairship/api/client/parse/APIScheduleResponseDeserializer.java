@@ -42,6 +42,14 @@ class APIScheduleResponseDeserializer extends JsonDeserializer<APIScheduleRespon
                                         reader.readScheduleIds(jsonParser);
                                     }
                                 })
+                                .put("schedules", new FieldParser<APIScheduleResponseReader>() {
+                                    @Override
+                                    public void parse(APIScheduleResponseReader reader,
+                                                      JsonParser jsonParser,
+                                                      DeserializationContext deserializationContext) throws IOException {
+                                        reader.readPushIds(jsonParser);
+                                    }
+                                })
                                 .build()
             );
 

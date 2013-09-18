@@ -13,6 +13,7 @@ public class APIScheduleResponse {
 
     private final String operationId;
     private final List<String> scheduleUrls;
+    private final List<String> pushIds;
 
     /**
      * New APIScheduleResponse builder
@@ -22,9 +23,10 @@ public class APIScheduleResponse {
         return new Builder();
     }
 
-    private APIScheduleResponse(String operationId, List<String> scheduleUrls){
+    private APIScheduleResponse(String operationId, List<String> scheduleUrls, List<String> pushIds){
         this.operationId = operationId;
         this.scheduleUrls = scheduleUrls;
+        this.pushIds = pushIds;
     }
 
     /**
@@ -47,12 +49,24 @@ public class APIScheduleResponse {
         return scheduleUrls;
     }
 
+    /**
+     * List of push id's, one for every actual push message that moves through
+     * the API. This is useful for tracking an individual message as part of
+     * an operation, and can be used when support is needed.
+     * @return List of push ids.
+     */
+    public List<String> getPushIds() {
+        return pushIds;
+    }
+
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("APIScheduleResponse:");
         stringBuilder.append(String.format("\nOperationId:%s", operationId));
         stringBuilder.append(String.format("\nScheduleUrls:\n%s", scheduleUrls));
+        stringBuilder.append("\nPushIds:");
+        stringBuilder.append(pushIds.toString());
         return stringBuilder.toString();
     }
 
@@ -63,6 +77,7 @@ public class APIScheduleResponse {
 
         private String operationId;
         private List<String> scheduleUrls;
+        private List<String> pushIds;
 
         private Builder() {}
 
@@ -76,8 +91,13 @@ public class APIScheduleResponse {
             return this;
         }
 
+        public Builder setPushIds(List<String>pushIds){
+          this.pushIds = pushIds;
+          return this;
+        }
+
         public APIScheduleResponse build(){
-            return new APIScheduleResponse(this.operationId, this.scheduleUrls);
+            return new APIScheduleResponse(this.operationId, this.scheduleUrls, this.pushIds);
         }
     }
 }

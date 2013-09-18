@@ -1,4 +1,4 @@
-package com.urbanairship.api.schedule.parse;
+package com.urbanairship.api.push.parse;
 
 import com.urbanairship.api.push.model.DeviceType;
 import com.urbanairship.api.push.model.DeviceTypeData;
